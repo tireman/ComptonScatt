@@ -1,0 +1,47 @@
+//******************************************************************************
+// LICENSE DISCLAIMER:
+// ===================
+
+// Permission is granted to the public to copy and use this software
+// without charge, provided that this Notice and any statement of
+// authorship are reproduced on all copies.  Neither the Authors nor 
+// Northern Michigan University makes any warranty, express or implied, 
+// or assumes any liability or responsibility for the use of this software.
+//
+// PhyiscsLists.hh
+//
+//******************************************************************************
+//
+
+#ifndef PhysicsList_h
+#define PhysicsList_h 1
+
+#include "G4VUserPhysicsList.hh"
+#include "globals.hh"
+
+class PhysicsList: public G4VUserPhysicsList
+{
+  public:
+    PhysicsList();
+    ~PhysicsList();
+
+  protected:
+    // Construct particle and physics
+    void ConstructParticle();
+    void ConstructProcess();
+
+    // Define tracking cuts (step length, etc)
+    void SetCuts();
+   
+  protected:
+    // these methods Construct particles 
+
+  protected:
+    // these methods Construct physics processes and register them
+    void ConstructGeneral();
+    void ConstructEM();
+
+
+};
+
+#endif

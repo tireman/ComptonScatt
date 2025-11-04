@@ -1,0 +1,37 @@
+## Typical Run Macro for the Compton Suppression Spectrometer Simulation
+
+## The required initialization line
+#/run/initialize  ##moved to int_vis.mac file
+
+## Start up the visualization and set various parameters
+/vis/open OGL 600x600-0+0
+
+# Disable auto refresh and quieten vis messages whilst scene and
+# trajectories are established:
+/vis/viewer/set/autoRefresh false
+/vis/verbose errors
+
+# Draw geometry:
+/vis/drawVolume
+
+# Specify view angle:
+/vis/viewer/set/viewpointThetaPhi -85.0 90.0
+/vis/viewer/zoom 2
+
+# Specify style (surface, wireframe, auxiliary edges,...)
+/vis/viewer/set/style s
+/vis/viewer/set/lineSegmentsPerCircle 100
+#
+# Axes, scale, etc.
+/vis/scene/add/axes
+# To superimpose all of the events from a given run:
+/vis/scene/endOfEventAction accumulate
+/tracking/storeTrajectory 1
+
+# Re-establish auto refreshing and verbosity:
+/vis/viewer/set/autoRefresh true
+/vis/verbose warnings
+#
+# For file-based drivers, use this to create an empty detector view:
+#/vis/viewer/flush
+

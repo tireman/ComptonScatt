@@ -1,0 +1,160 @@
+--------------------------------------------------------------------------------
+Compton v0.10 Installation and Use               W. Tireman   NMU   February 2015
+
+A GEANT4 Simulation used to simulate a compton suppression spectrometer for 
+gamma ray spectroscopy.
+--------------------------------------------------------------------------------
+
+Version 0.10 works with GEANT4.10.0.p01
+
+INTRODUCTION:
+=============
+
+This document describes the installation and use of the Compton
+program which is based on GEANT4 and is designed to simulate the 
+interaction of gamma rays with a NaI detector and a plastic 
+scintillation Compton Suppression Detector.  The code is being 
+by Faculty and Students at Northern Michigan University in Marquette, 
+Michigan, USA. 
+
+PHYSICS OVERVIEW:
+=================
+This currently uses the built in FTFP_BERT physics class.  
+
+REQUIREMENTS:
+=============
+
+This release (v0.10) was tested with GEANT4.10.0.p01 (15-Feb-2015) on 
+Ubuntu Linux 14.04 with gcc version 4.8.2.  In addition to GEANT4.10.0, 
+data files for low-energy electromagnetic processes, G4EMLOW v6.35, 
+available from the GEANT4 distribution site.  If other data files are 
+needed for other physics lists, such as 'np' versions for neutron
+data, you will need to make sure they are installed as well.
+
+The program is compiled using Cmake v1.2.1.  A CMakeLists and compton.cmake
+files are included in the directory 'cmake'. These need to be copied to
+the proper locations as explained below.
+
+In theory, any Linux based system with up-to-date gcc versions and the 
+proper libraries for visulization should be able to compile and run this 
+program.  However, the authors will promise nothing.
+
+
+INSTALLATION:
+=============
+
+Introduction:
+-------------
+Installation is done by cloning the GitHub repository to an fresh, clean 
+directory on your system.  If you can compile and run the GEANT4 examples 
+you should be fine with this program.  
+
+
+Files & Directories:
+--------------------
+Successful cloning of the GitHub repository will result in
+the following files and directory structure beneath the current
+directory which I call the parent directory {parent-dir}.  The 
+directory will be called {parent-dir}/css/.
+
+    README		--This file
+
+    css.mac		--Main macro file for the application
+
+    vis.mac		--Basic visualization macro for testing
+
+    init_vis.mac	--Default macro file that calls vis.mac as well
+
+    CMakeLists.txt	-- The "standard" CMakeLists file necessary
+    			   for the cmake to do its job. A copy is in
+			   the folder 'cmake' in case it is deleted.
+
+    cmake/	== includes the files for cmake operation
+
+    include/	== Include files used by Compton
+
+    src/	== Source code for used by Compton application
+
+Compilation:
+-------------
+A new directory should be made next to the /css directory called 
+css-build.  Inside the 'build' directory the file 'compton.cmake' 
+needs to copied from the 'cmake' directory in the /css directory.  
+
+Modifications, as needed, to the cmake file (compton.cmake) in the build 
+directory and the CMakeLists.txt file in the /css must be 
+made so as to accomondate your version of GEANT4, debug versus 
+production version, etc.  
+
+To compile the program, go to the build directory and execute the command
+
+>> cmake -C compton.cmake  {path-to-parent-dir}/css
+
+This will generate the necessary files and make scripts.  If sucessful 
+then run the make command 
+
+>> make
+
+or if you want multithread support 
+
+>> make -jN 
+
+where N is the number of threads you want to use for compiling the program.
+The application executable compton should appear in the build directory along
+with the macro file(s) [css.mac, vis.mac, init_vis.mac].
+
+Data Files:
+-----------
+
+Before compiling and running the compton, you will need to make sure 
+the correct data files are not only installed but the environmental 
+variables point to them correctly.  If you setup GEANT4 with them 
+installed then this should already be taken care of.
+
+USING compton:
+=============
+The program is then ran using 
+
+>> ./compton css.mac
+
+on the command line.  In the css.mac macro file you can change the number
+of events, energy of the gamma ray, gamma ray source, and other
+possible settings.  See GEANT4 documentation for more information.
+
+OUTPUT:
+=======
+
+Output to the screen is currently printed every 1000 events but can be 
+changed in the program or on the command line via runmanager commands.
+The results from eventaction are printed.  The results for EACH event are
+stored as an Ntuple in a root file in the build directory.
+
+DOCUMENT HISTORY:
+=================
+v0.10/Feb-2015.... Initial GitHub Version of the program
+
+
+PROBLEMS/QUESTIONS:
+===================
+e-mail: wtireman@nmu.edu
+phone:	906-227-1056
+mail:	Dr. William Tireman
+	1401 Presque Isle Avenue
+	Northern Michigan University
+	Marquette, MI 49855
+
+Users are encouraged to acknowledge the author in any publications or
+presentations that include results using compton.
+
+
+LICENSE DISCLAIMER:
+===================
+
+Permission is granted to the public to copy and use this software
+without charge, provided that this Notice and any statement of
+authorship are reproduced on all copies.  Neither the Authors nor 
+Northern Michigan University makes any warranty, express or implied, 
+or assumes any liability or responsibility for the use of this software.
+
+--------------------------------------------------------------------------------
+-eof-
